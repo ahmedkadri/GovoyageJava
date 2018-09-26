@@ -1,0 +1,809 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Presentation;
+
+import Dao.CroisiereDao;
+import Dao.OffreCroisiereDao;
+import Dao.OffreHotelDao;
+import com.sun.imageio.plugins.png.RowFilter;
+
+import entite.Croisiere;
+import entite.OffreCroisiere;
+import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+/**
+ *
+ * @author ahmed
+ */
+public class OffreCroisiere_Gui extends javax.swing.JFrame {
+
+    /**
+     * Creates new form OffreCroisiere_Gui
+     */
+    
+    
+    
+    CroisiereDao x = new CroisiereDao();
+    List <Croisiere> listecroisiere = x.afficherCroisiere();
+    
+
+    
+    
+    
+    public OffreCroisiere_Gui() {
+        //this.rowSorter = new TableRowSorter<>(JtableOffreCroisiere.getModel());
+        initComponents();
+        fillCombo();
+        UpdateOffreCroisiere();
+        
+        
+    }
+    
+   
+   
+    
+    
+    
+    
+    public void fillCombo()
+    {
+         CroisiereDao odao = new CroisiereDao();
+         
+         
+         for(int i=0;i<odao.afficherCroisiere().size();i++)
+         {
+              
+              jComboBox1.addItem(listecroisiere.get(i).getNomcrois());
+         } 
+    }
+    
+    
+        public void UpdateOffreCroisiere(){
+        
+            DefaultTableModel model =(DefaultTableModel) JtableOffreCroisiere.getModel();
+            
+            TableRowSorter<TableModel> rowSorter
+            = new TableRowSorter<TableModel>(model);
+            
+           
+            
+            
+            JtableOffreCroisiere.setRowSorter(rowSorter);
+            //******************
+        
+        OffreCroisiereDao odao = new OffreCroisiereDao();
+        Object[] rowData = new Object[12];
+        
+        for(int i=0;i<odao.AfficherOffreCroisiere().size();i++){
+         
+            rowData[0] = odao.AfficherOffreCroisiere().get(i).getIdCroisiere();
+             rowData[1] = odao.AfficherOffreCroisiere().get(i).getReduction();
+               rowData[2] = odao.AfficherOffreCroisiere().get(i).getNomcrois();
+                rowData[3] = odao.AfficherOffreCroisiere().get(i).getPrix();
+                  rowData[4] = odao.AfficherOffreCroisiere().get(i).getDate_Debut();
+                   rowData[5] = odao.AfficherOffreCroisiere().get(i).getDate_Fin();
+                    rowData[6] = odao.AfficherOffreCroisiere().get(i).getNombrePlace();
+                     rowData[7] = odao.AfficherOffreCroisiere().get(i).getDateDepart();
+                      rowData[8] = odao.AfficherOffreCroisiere().get(i).getNBJour();
+                       rowData[9] = odao.AfficherOffreCroisiere().get(i).getVilleDepart();
+                        rowData[10] = odao.AfficherOffreCroisiere().get(i).getVilleDestination();
+                          rowData[11] = odao.AfficherOffreCroisiere().get(i).getDescription();
+                model.addRow(rowData);          
+
+             }  
+                
+                        jtfFilter.getDocument().addDocumentListener(new DocumentListener(){
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = jtfFilter.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                   
+                } else {
+                    rowSorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = jtfFilter.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                    
+                } else {
+                    rowSorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+    }
+        
+         void reset() {
+        DefaultTableModel model =(DefaultTableModel) JtableOffreCroisiere.getModel();
+            model.setRowCount(0);
+        } 
+    
+    
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextnomcroisiere = new javax.swing.JTextField();
+        jTextPrix = new javax.swing.JTextField();
+        jTextnombreplace = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jTextdatedepart = new javax.swing.JTextField();
+        jTextnombrejour = new javax.swing.JTextField();
+        jTextvilledestination = new javax.swing.JTextField();
+        jTextvilledepart = new javax.swing.JTextField();
+        jTextdesc = new javax.swing.JTextField();
+        Retour = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        JTextReduction = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JtableOffreCroisiere = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        AjouterOffreCroisiere = new javax.swing.JButton();
+        SuupprimerOffreCr = new javax.swing.JButton();
+        ModifierCroisiere = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jtfFilter = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select Croisiere", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 3, 24), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel1.setForeground(new java.awt.Color(240, 240, 240));
+
+        jComboBox1.setFont(new java.awt.Font("Serif", 3, 18)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(0, 102, 255));
+        jComboBox1.setMaximumRowCount(15);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 340, 140));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Offre Croisierel Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 3, 24), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel3.setForeground(new java.awt.Color(240, 240, 240));
+
+        jLabel5.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel5.setText("Prix :");
+
+        jLabel4.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel4.setText("Nom Croisiere :");
+
+        jLabel6.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel6.setText("Nombre Place:");
+
+        jLabel7.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel7.setText("Date Debut :");
+
+        jLabel8.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel8.setText("Date Fin :");
+
+        jLabel9.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel9.setText("Nombre Jours :");
+
+        jLabel11.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel11.setText("Ville Depart :");
+
+        jLabel12.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel12.setText("Ville Destination :");
+
+        jLabel13.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel13.setText("Date Depart :");
+
+        jLabel14.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        jLabel14.setText("Description :");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextPrix, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                        .addComponent(jTextnomcroisiere))
+                    .addComponent(jTextnombreplace, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextvilledepart, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextvilledestination, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextnombrejour, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextdatedepart, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextdesc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
+        );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextPrix, jTextnombreplace, jTextnomcroisiere});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextdatedepart, jTextdesc, jTextnombrejour, jTextvilledepart, jTextvilledestination});
+
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextdatedepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(19, 19, 19))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jTextnombrejour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextvilledepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextvilledestination, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(jTextdesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextnomcroisiere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextPrix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextnombreplace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(48, 48, 48))
+        );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTextPrix, jTextnombreplace});
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 480, 250));
+
+        Retour.setFont(new java.awt.Font("Serif", 3, 18)); // NOI18N
+        Retour.setText("Retour");
+        Retour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RetourActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Retour, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 600, 110, 30));
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Taux", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 3, 24), new java.awt.Color(255, 102, 0))); // NOI18N
+        jPanel4.setForeground(new java.awt.Color(240, 240, 240));
+
+        jLabel3.setFont(new java.awt.Font("Serif", 3, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("Réduction :");
+
+        JTextReduction.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        JTextReduction.setForeground(new java.awt.Color(0, 153, 0));
+        JTextReduction.setText("25");
+        JTextReduction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTextReductionActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Serif", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("%");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 188, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(120, 120, 120)
+                            .addComponent(JTextReduction, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 72, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JTextReduction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 200, 110));
+
+        JtableOffreCroisiere.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        JtableOffreCroisiere.setFont(new java.awt.Font("Yu Gothic Medium", 2, 11)); // NOI18N
+        JtableOffreCroisiere.setForeground(new java.awt.Color(0, 0, 204));
+        JtableOffreCroisiere.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "IdCroisiere", "Reduction", "NomCrois", "Prix", "DateDebut", "DateFin", "NombrePlace", "Date!depart", "NBJours", "VilleDepart", "VilleDestination", "Description"
+            }
+        ));
+        JtableOffreCroisiere.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JtableOffreCroisiereMouseClicked(evt);
+            }
+        });
+        JtableOffreCroisiere.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JtableOffreCroisiereKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(JtableOffreCroisiere);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 950, 160));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Button", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 18), new java.awt.Color(51, 0, 255)), "Buttons", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(51, 0, 255))); // NOI18N
+        jPanel2.setForeground(new java.awt.Color(240, 240, 240));
+
+        AjouterOffreCroisiere.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        AjouterOffreCroisiere.setForeground(new java.awt.Color(51, 153, 255));
+        AjouterOffreCroisiere.setText("Ajouter");
+        AjouterOffreCroisiere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjouterOffreCroisiereActionPerformed(evt);
+            }
+        });
+
+        SuupprimerOffreCr.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        SuupprimerOffreCr.setForeground(new java.awt.Color(51, 153, 255));
+        SuupprimerOffreCr.setText("Supprimer");
+        SuupprimerOffreCr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SuupprimerOffreCrActionPerformed(evt);
+            }
+        });
+
+        ModifierCroisiere.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        ModifierCroisiere.setForeground(new java.awt.Color(51, 153, 255));
+        ModifierCroisiere.setText("Modifier");
+        ModifierCroisiere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModifierCroisiereActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SuupprimerOffreCr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AjouterOffreCroisiere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ModifierCroisiere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {AjouterOffreCroisiere, ModifierCroisiere, SuupprimerOffreCr});
+
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(AjouterOffreCroisiere, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ModifierCroisiere, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(SuupprimerOffreCr, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {AjouterOffreCroisiere, ModifierCroisiere, SuupprimerOffreCr});
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, 260, 230));
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "search :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 3, 24), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel5.setForeground(new java.awt.Color(240, 240, 240));
+
+        jtfFilter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfFilterKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(jtfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jtfFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 300, 170, 110));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Capture_Projet.PNG"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 670));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void RetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetourActionPerformed
+        home_offre ac = new home_offre();
+        ac.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_RetourActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+       jTextnomcroisiere.setText(listecroisiere.get(jComboBox1.getSelectedIndex()).getNomcrois());
+       
+        int red = Integer.parseInt(JTextReduction.getText());
+        int Prixconv = Integer.parseInt(listecroisiere.get(jComboBox1.getSelectedIndex()).getPrix());
+        float prixpcred = Prixconv - (Prixconv*red)/100 ;
+        String f1pcp = Float.toString(prixpcred);
+       
+       
+       jTextPrix.setText(f1pcp);
+       
+       jTextnombreplace.setText(Integer.toString(listecroisiere.get(jComboBox1.getSelectedIndex()).getNombrePlace()));
+       jTextnombrejour.setText(Integer.toString(listecroisiere.get(jComboBox1.getSelectedIndex()).getNBJour()));
+       
+       jTextdatedepart.setText(listecroisiere.get(jComboBox1.getSelectedIndex()).getDateDepart());
+       
+       jTextvilledepart.setText(listecroisiere.get(jComboBox1.getSelectedIndex()).getVilleDepart());
+       jTextvilledestination.setText(listecroisiere.get(jComboBox1.getSelectedIndex()).getVilleDestination());
+       jTextdesc.setText(listecroisiere.get(jComboBox1.getSelectedIndex()).getDescription());
+       // int x = listecroisiere.get(jComboBox1.getSelectedIndex()).getNombrePlace();
+       
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void JtableOffreCroisiereMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JtableOffreCroisiereMouseClicked
+
+        DefaultTableModel model =(DefaultTableModel) JtableOffreCroisiere.getModel();
+
+        JTextReduction.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 1).toString());
+        jTextnomcroisiere.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 2).toString());
+        jTextPrix.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 3).toString());
+        
+        jDateChooser1.setDate((Date) model.getValueAt(JtableOffreCroisiere.getSelectedRow(),4));
+        jDateChooser2.setDate((Date) model.getValueAt(JtableOffreCroisiere.getSelectedRow(),5));
+        
+        jTextnombreplace.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 6).toString());
+        jTextdatedepart.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 7).toString());
+        jTextnombrejour.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 8).toString());
+        jTextvilledepart.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 9).toString());
+        jTextvilledestination.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 10).toString());
+      
+        
+        jTextdesc.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 11).toString());
+
+    }//GEN-LAST:event_JtableOffreCroisiereMouseClicked
+
+    private void JtableOffreCroisiereKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JtableOffreCroisiereKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyCode() == KeyEvent.VK_UP )
+        {
+            DefaultTableModel model =(DefaultTableModel) JtableOffreCroisiere.getModel();
+
+            JTextReduction.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 1).toString());
+        jTextnomcroisiere.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 2).toString());
+        
+        
+        jTextPrix.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 3).toString());
+        
+        jDateChooser1.setDate((Date) model.getValueAt(JtableOffreCroisiere.getSelectedRow(),4));
+        jDateChooser2.setDate((Date) model.getValueAt(JtableOffreCroisiere.getSelectedRow(),5));
+        
+        jTextnombreplace.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 6).toString());
+        jTextdatedepart.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 7).toString());
+        jTextnombrejour.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 8).toString());
+        jTextvilledepart.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 9).toString());
+        jTextvilledestination.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 10).toString());
+      
+        
+        jTextdesc.setText(model.getValueAt(JtableOffreCroisiere.getSelectedRow(), 11).toString());
+        }
+    }//GEN-LAST:event_JtableOffreCroisiereKeyPressed
+
+    private void AjouterOffreCroisiereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterOffreCroisiereActionPerformed
+
+         java.util.Date aujourdhui = new java.util.Date();
+        
+        OffreCroisiere o1 = new OffreCroisiere();
+        OffreCroisiereDao odao = new OffreCroisiereDao();
+
+        java.sql.Date tanggalMulai = new java.sql.Date(jDateChooser1.getDate().getTime());
+        java.sql.Date tanggalMulai2 = new java.sql.Date(jDateChooser2.getDate().getTime());
+
+        
+
+        DefaultTableModel model =(DefaultTableModel) JtableOffreCroisiere.getModel();
+
+        if(tanggalMulai.compareTo(aujourdhui)>0 )
+        {
+           if(tanggalMulai.compareTo(tanggalMulai2)<0)
+            {
+                o1.setReduction(Integer.parseInt(JTextReduction.getText()));
+                o1.setNomcrois(jTextnomcroisiere.getText());
+                o1.setPrix(Float.parseFloat(jTextPrix.getText()));
+                o1.setDate_Debut(tanggalMulai);
+                o1.setDate_Fin(tanggalMulai2);
+                o1.setNombrePlace(Integer.parseInt(jTextnombreplace.getText()));
+                o1.setDateDepart(jTextdatedepart.getText());
+                o1.setNBJour(Integer.parseInt(jTextnombrejour.getText()));
+                o1.setVilleDepart(jTextvilledepart.getText());
+                o1.setVilleDestination(jTextvilledestination.getText());
+                o1.setDescription(jTextdesc.getText());
+                
+             
+
+                odao.AjouterOffreCroisiere(o1);
+
+                reset();
+                UpdateOffreCroisiere();
+
+               JOptionPane.showMessageDialog(rootPane, "Offre Croisiere Ajouter");
+           }else{JOptionPane.showMessageDialog(rootPane, "La 2éme Date Doit etre Apres La date Du Debut");}
+        }else{JOptionPane.showMessageDialog(rootPane, "La Date Doit etre Apres La date D'Aujourdhui");}
+    }//GEN-LAST:event_AjouterOffreCroisiereActionPerformed
+
+    private void SuupprimerOffreCrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuupprimerOffreCrActionPerformed
+
+        OffreCroisiere o1 = new OffreCroisiere();
+        OffreCroisiereDao odao = new OffreCroisiereDao();
+        DefaultTableModel model =(DefaultTableModel) JtableOffreCroisiere.getModel();
+
+        if(JtableOffreCroisiere.getSelectedRow()==-1){
+            JOptionPane.showMessageDialog(null, "Veuillez séléctionner une Offre Hotel !!"
+                ,"Message",JOptionPane.INFORMATION_MESSAGE);
+
+        }
+        else{
+
+            odao.SupprimerOffreCroisiere((int) JtableOffreCroisiere.getValueAt(JtableOffreCroisiere.getSelectedRow(),0));
+            model.removeRow(JtableOffreCroisiere.getSelectedRow());
+        }
+    }//GEN-LAST:event_SuupprimerOffreCrActionPerformed
+
+    private void ModifierCroisiereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierCroisiereActionPerformed
+
+        OffreCroisiere o1 = new OffreCroisiere();
+        
+        OffreCroisiereDao odao = new OffreCroisiereDao();
+
+        //lMessage2.setText("" );
+        DefaultTableModel model =(DefaultTableModel) JtableOffreCroisiere.getModel();
+
+        java.sql.Date tanggalMulai = new java.sql.Date(jDateChooser1.getDate().getTime());
+        java.sql.Date tanggalMulai2 = new java.sql.Date(jDateChooser2.getDate().getTime());
+
+        if(JtableOffreCroisiere.getSelectedRow()== -1){
+
+            JOptionPane.showMessageDialog(rootPane, "vous deviez selectioné");
+
+        }else{
+
+                o1.setReduction(Integer.parseInt(JTextReduction.getText()));
+                o1.setNomcrois(jTextnomcroisiere.getText());
+                o1.setPrix(Float.parseFloat(jTextPrix.getText()));
+                o1.setDate_Debut(tanggalMulai);
+                o1.setDate_Fin(tanggalMulai2);
+                o1.setNombrePlace(Integer.parseInt(jTextnombreplace.getText()));
+                o1.setDateDepart(jTextdatedepart.getText());
+                o1.setNBJour(Integer.parseInt(jTextnombrejour.getText()));
+                o1.setVilleDepart(jTextvilledepart.getText());
+                o1.setVilleDestination(jTextvilledestination.getText());
+                o1.setDescription(jTextdesc.getText());
+
+            odao.ModifierOffreCroisiere(o1,(int) JtableOffreCroisiere.getValueAt(JtableOffreCroisiere.getSelectedRow(),0));
+
+            reset();
+            UpdateOffreCroisiere();
+
+        }
+    }//GEN-LAST:event_ModifierCroisiereActionPerformed
+
+    
+    
+    private void jtfFilterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfFilterKeyReleased
+
+         //nklnlnlmknlknklnlk
+
+    }//GEN-LAST:event_jtfFilterKeyReleased
+
+    private void JTextReductionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTextReductionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTextReductionActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(OffreCroisiere_Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(OffreCroisiere_Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(OffreCroisiere_Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(OffreCroisiere_Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new OffreCroisiere_Gui().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AjouterOffreCroisiere;
+    private javax.swing.JTextField JTextReduction;
+    private javax.swing.JTable JtableOffreCroisiere;
+    private javax.swing.JButton ModifierCroisiere;
+    private javax.swing.JButton Retour;
+    private javax.swing.JButton SuupprimerOffreCr;
+    private javax.swing.JComboBox jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextPrix;
+    private javax.swing.JTextField jTextdatedepart;
+    private javax.swing.JTextField jTextdesc;
+    private javax.swing.JTextField jTextnombrejour;
+    private javax.swing.JTextField jTextnombreplace;
+    private javax.swing.JTextField jTextnomcroisiere;
+    private javax.swing.JTextField jTextvilledepart;
+    private javax.swing.JTextField jTextvilledestination;
+    private javax.swing.JTextField jtfFilter;
+    // End of variables declaration//GEN-END:variables
+}
